@@ -1,0 +1,23 @@
+version: "2"
+
+volumes:
+  pcfweb-sync:
+    external: true
+  gem_store_242:
+    external: true
+
+services:
+  web:
+    build:
+      context: .
+      #dockerfile: docker/Dockerfile-web-dev
+    command: ./start.sh
+    #env_file: .env
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - gem_store_242:/gems
+      - .:/app
+      - pcfweb-sync:/app:nocopy
